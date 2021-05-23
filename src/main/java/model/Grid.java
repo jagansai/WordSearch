@@ -17,9 +17,17 @@ public class Grid {
             this.x = x;
             this.y = y;
         }
+
+        @Override
+        public String toString() {
+            return "Coordinate{" +
+                    "x=" + x +
+                    ", y=" + y +
+                    '}';
+        }
     }
 
-    private enum Directions {
+    enum Directions {
         Horizontal ( "Horizontal" ),
         Vertical ( "Vertical" ),
         Diagonal( "Diagnol" ),
@@ -45,7 +53,7 @@ public class Grid {
     private final char[][] _contents;
     private final List<Coordinate> _coordinates;
     private static final char UNDER_SCORE = '_';
-    private final List<String> _wordsUsed = new ArrayList<>();
+    private final List<WordDirection> _wordsUsed = new ArrayList<>();
 
 
     public Grid( int gridSize ) {
@@ -95,7 +103,7 @@ public class Grid {
             for (Coordinate coordinate : _coordinates) {
                 if ( hasEnoughSpace( direction, coordinate.x, coordinate.y, word.length() ) ) {
                     fillInTheDirection( direction, coordinate.x, coordinate.y, word );
-                    _wordsUsed.add( word );
+                    _wordsUsed.add( new WordDirection( direction, coordinate, word ) );
                     return;
                 }
             }
@@ -168,7 +176,7 @@ public class Grid {
         int i = x;
         int j = y;
         for ( ; i >= 0 && j >= 0; --i, --j, --wordSize ) {
-            if ( _contents[i][y] != UNDER_SCORE ) {
+            if ( _contents[i][j] != UNDER_SCORE ) {
                 return false;
             }
         }
@@ -182,7 +190,7 @@ public class Grid {
         int i = x;
         int j = y;
         for ( ; i < requiredSizeToFit && j < requiredSizeToFit; ++i, ++j, --wordSize ) {
-            if ( _contents[i][y] != UNDER_SCORE ) {
+            if ( _contents[i][j] != UNDER_SCORE ) {
                 return false;
             }
         }
