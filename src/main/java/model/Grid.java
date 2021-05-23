@@ -9,7 +9,7 @@ import java.util.List;
 public class Grid {
 
     // class Coordinate that represents 2 coordinates in the grid.
-    private static class Coordinate {
+    static class Coordinate {
         final int x;
         final int y;
 
@@ -45,7 +45,7 @@ public class Grid {
     private final char[][] _contents;
     private final List<Coordinate> _coordinates;
     private static final char UNDER_SCORE = '_';
-    private List<String> _wordsUsed = new ArrayList<>();
+    private final List<String> _wordsUsed = new ArrayList<>();
 
 
     public Grid( int gridSize ) {
